@@ -21,5 +21,10 @@ app.listen(PORT, () => {
     console.log(`server is running ${PORT}`)
  
 })
-
+app.get("/", (req, res) => {
+		res.status(200).send({
+			status: 200,
+			message: 'Api Running!'
+		})
+	});
 app.use('/api', userController)
