@@ -75,7 +75,7 @@ const login = async (req, res, next) => {
                     res.json({
                         status: 200,
                         message: 'login Successful',
-                        token
+                        data : token
                     })
                 }
                 else {
