@@ -19,7 +19,7 @@ app.use(morgan('dev'))
 app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 9000
 app.listen(PORT, () => {
     console.log(`server is running ${PORT}`)
  
