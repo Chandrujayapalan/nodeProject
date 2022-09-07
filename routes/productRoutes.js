@@ -13,5 +13,5 @@ router.delete('/deleteOrder',authenticate.authenticating,controller.deleteOrder)
 router.get('/listOrder',authenticate.authenticating,controller.listorder)
 router.get('/date',authenticate.authenticating,controller.date)
 // router.get('/listproduct',authenticate.authenticating,controller.listproduct)
-router.get('/listproduct', controllers.listproduct)
+router.get('/listproduct',authenticate.authenticating, controllers.listproduct)
 module.exports =router  
