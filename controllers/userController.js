@@ -132,4 +132,21 @@ const uploadproduct = async (req, res, next) => {
     }
 }
 
-module.exports = { register, login, uploadproduct }
+
+const listproduct = async (req, res, next) => {
+    try {
+       let result = await Products.find()
+        res.json({
+            status: 200,
+            message: 'Added successfully',
+            result
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({
+            message: error.message
+        })
+    }
+}
+
+module.exports = { register, login, uploadproduct, listproduct }
