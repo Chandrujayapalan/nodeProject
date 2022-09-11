@@ -5,8 +5,6 @@ const Products = require('../model/productModel')
 const updateOrder = async (req, res, next) => {
 
     try {
-
-
         let totalCost = 0
         let result = await Products.find({ _id: { $in: req.body.items } })
         result.map(a => {
@@ -84,18 +82,25 @@ const deleteOrder = async (req, res, next) => {
 }
 const listorder = async (req, res, next) => {
     try {
+        let { date } = req.body
 
-        let order = await Orders.find({ "$or": [{ userId: req.user.id }] })
-        // .sort({userId:req.body.userId})
-        // .count({userId : req.body.userId})
+        let order = await Orders.find({ $or: [{ userId: req.user.id }, { date: req.body.date }] }).populate('userId').populate("items")
+
         order = order.map(a => {
+            // console.log(a.items)
             return {
-                CustumerName: a.userId,
-                productName: a.items
+                CustumerName: a.userId.name,
+                ProductsDetails: a.items.map(b => {
+                    return {
+                        productName: b.productsName,
+                        productPrice: b.productPrice
+                    }
+                }),
+                Total: a.total
             }
         })
 
-        res.json({
+        return res.json({
             status: 200,
             data: order
         })
@@ -177,8 +182,8 @@ const date = async (req, res, next) => {
             }
         })
         console.log(order)
-       order = await Products.find({Orders :order.items})
-       order = order.map(a => {
+        order = await Products.find({ Orders: order.items })
+        order = order.map(a => {
             return {
                 productsName: a.productsName,
             }

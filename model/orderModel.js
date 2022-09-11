@@ -3,27 +3,31 @@ const { array } = require('../middleware/upload')
 
 const Schema = mongoose.Schema
 
-const  orderSchema = new Schema({
+const orderSchema = new Schema({
     items: {
         type: Array,
-        trim: true
+        trim: true,
+        ref: "Products"
     }, 
-    date :{
-        type: Date
-     
-    }, 
+    date: {
+        type: Date,
+        required: true
+
+    },
     total: {
         type: Number,
-      
-      
+        required: true
+
+
     },
-    userId:{
+    userId: {
         type: Schema.Types.ObjectId,
-        ref:'userModel'
+        ref: 'User',
+        required: true
     }
 
 },
-{ timestamps: true })
+    { timestamps: true })
 const Orders = mongoose.model('Orders', orderSchema)
 
 module.exports = Orders
