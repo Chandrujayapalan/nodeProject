@@ -82,9 +82,9 @@ const deleteOrder = async (req, res, next) => {
 }
 const listorder = async (req, res, next) => {
     try {
-        let { date } = req.body
+      
 
-        let order = await Orders.find({ $or: [{ userId: req.user.id }, { date: req.body.date }] }).populate('userId').populate("items")
+        let order = await Orders.find({ userId: req.user.id }).populate('userId').populate("items")
 
         order = order.map(a => {
             // console.log(a.items)
@@ -96,7 +96,8 @@ const listorder = async (req, res, next) => {
                         productPrice: b.productPrice
                     }
                 }),
-                Total: a.total
+                Total: a.total,
+                Date : a.date
             }
         })
 
